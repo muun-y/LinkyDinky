@@ -1,0 +1,66 @@
+<header
+    class="bg-theme-hf-color p-4 flex justify-between items-center h-20 text-white text-xl font-bold w-full sticky top-0">
+    <!-- Logo -->
+    <div>
+        <a href="/">
+            <img src="/images/logo.png" alt="Linky Dinky Logo" class="h-20" />
+        </a>
+    </div>
+    <!-- Mobile (Hamburger) -->
+    <div class="block md:hidden">
+        <button onclick="toggleMenu()" class="focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
+            </svg>
+        </button>
+    </div>
+    <!-- Desktop -->
+    <div class="hidden md:flex">
+        <ul class="flex justify-around">
+
+            <% if (!authenticated) { %>
+                <li class="px-4"><a href="/login" class="text-white">Login</a></li>
+                <% } else { %>
+                    <li class="px-4"><a href="/upload" class="text-white">Upload</a></li>
+                    <li class="px-4"><a href="/stats" class="text-white">Statics</a></li>
+                    <li class="px-4"><a href="/mypage" class="text-white">Mypage</a></li>
+                    <li class="px-4"><a href="/logout" class="text-white">Logout</a></li>
+                    <% } %>
+        </ul>
+    </div>
+</header>
+
+<!-- Mobile -->
+<div id="mobileMenu" class="md:hidden hidden w-full">
+    <ul class="flex flex-col items-center bg-theme-hf-color text-white text-lg p-4">
+        <% if (!authenticated) { %>
+            <li class="py-2"><a href="/login" class="text-white">Login</a></li>
+            <% } else { %>
+                <li class="py-2"><a href="/upload" class="text-white">Upload</a></li>
+                <li class="py-2"><a href="/stats" class="text-white">Statics</a></li>
+                <li class="px-4"><a href="/mypage" class="text-white">Mypage</a></li>
+                <li class="py-2"><a href="/logout" class="text-white">Logout</a></li>
+                <% } %>
+    </ul>
+</div>
+<!-- Breadcrumb -->
+<nav class="flex p-5 w-full" aria-label="Breadcrumb">
+    <ol id="breadcrumb" class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+        <li class="inline-flex items-center">
+            <a href="/" class="inline-flex items-center text-sm font-medium text-black hover:text-gray-700">
+                <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                </svg>
+                Home
+            </a>
+        </li>
+    </ol>
+</nav>
+
+<!-- Main content -->
+<main class="flex justify-center text-center p-8 text-primary-600 h-full w-full">
+    <div class="container items-center">

@@ -1,0 +1,102 @@
+<%- include("templates/header") %>
+    <%- include("templates/navbar") %>
+        <h1 class="text-base md:text-3xl md:font-bold mb-5 text-center text-gray-500">Statistics</h1>
+        <div class="flex flex-col">
+            <!-- Tab Navigation -->
+            <div class="flex justify-end mb-4 space-x-4">
+                <a href="/stats?type=link" class="bg-white px-4 py-2 rounded font-bold">Link</a>
+                <a href="/stats?type=image" class="bg-white px-4 py-2 rounded font-bold">Image</a>
+                <a href="/stats?type=text" class="bg-white px-4 py-2 rounded font-bold">Text</a>
+            </div>
+
+            <% if (type==='text' ) { %>
+                <div class="flex justify-end w-full mb-4 space-x-4">
+                    <form class="flex max-w-md md:w-1/2 space-x-4">
+                        <label for="search"
+                            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                        <input type="search" id="search"
+                            class="p-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
+                            placeholder="Search Text..." required />
+                        <button type="submit" id="search-button"
+                            class="text-white bg-theme-button-color hover:text-black font-medium rounded-lg text-sm px-6 py-2">
+                            Search
+                        </button>
+                    </form>
+                </div>
+                <% } %>
+
+                    <!-- URL Table -->
+                    <div class="overflow-x-auto w-full">
+                        <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden stats-table"
+                            id="stats-table">
+                            <thead class="bg-white">
+                                <tr>
+                                    <th class="py-2 px-4 whitespace-nowrap">#</th>
+                                    <th class="py-2 px-4">
+                                        <%= type==='link' ? 'URL' : type==='image' ? 'Image' : 'Text' %>
+                                    </th>
+                                    <th class="py-2 px-4 whitespace-nowrap">Short URL</th>
+                                    <th class="py-2 px-4 whitespace-nowrap">Hits</th>
+                                    <th class="py-2 px-4 whitespace-nowrap">Active</th>
+                                    <th class="py-2 px-4 whitespace-nowrap">Created</th>
+                                    <th class="py-2 px-4 whitespace-nowrap">Last Hit</th>
+                                    <!-- <th class="py-2 px-4 whitespace-nowrap">Edit</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% items.forEach((item, index)=> { %>
+                                    <tr>
+                                        <td class="py-2 px-4 whitespace-nowrap">
+                                            <%= index + 1 %>
+                                        </td>
+                                        <td class="py-2 px-4 whitespace-nowrap">
+                                            <% if (type==='link' ) { %>
+                                                <a class="pointer" href="<%=item.original_url%>">
+                                                    <%= typeof item.original_url==='string' && item.original_url.length>
+                                                        10 ?
+                                                        item.original_url.substring(0, 20) +
+                                                        '...' : item.original_url %>
+                                                </a>
+                                                <% } else if (type==='image' ) { %>
+                                                    <img src="<%= item.original_url %>" alt="Image"
+                                                        style="max-width: 100px;" />
+                                                    <% } else { %>
+                                                        <%= typeof item.text==='string' && item.text.length> 10
+                                                            ?
+                                                            item.text.substring(0, 20) +
+                                                            '...' : item.text %>
+                                                            <% } %>
+                                        </td>
+                                        <td class="py-2 px-4 whitespace-nowrap">
+                                            <a href="/info/<%=type%>/<%=item.short_url%>">
+                                                <%= item.short_url %>
+                                            </a>
+                                        </td>
+                                        <td class="py-2 px-4 whitespace-nowrap">
+                                            <%= item.hit %>
+                                        </td>
+                                        <td class="py-2 px-4 whitespace-nowrap">
+                                            <input type="checkbox" class="toggle-active"
+                                                data-id="<%= item.content_id %>" <%=item.is_active===1 ? 'checked' : ''
+                                                %>/>
+                                        </td>
+                                        <td class="py-2 px-4 whitespace-nowrap">
+                                            <%= new Date(item.created_at).toLocaleString('ko-KR', { year: 'numeric' ,
+                                                month: '2-digit' , day: '2-digit' , hour: '2-digit' , minute: '2-digit'
+                                                , hour12: false }) %>
+                                        </td>
+                                        <td class="py-2 px-4 whitespace-nowrap">
+                                            <%= item.last_hit_at ? new Date(item.last_hit_at).toLocaleString('ko-KR', {
+                                                year: 'numeric' , month: '2-digit' , day: '2-digit' , hour: '2-digit' ,
+                                                minute: '2-digit' , hour12: false }) : '-' %>
+                                        </td>
+                                        <!-- <td class="py-2 px-4 whitespace-nowrap">
+                                            <button class="edit-button" data-id="<%= item.content_id %>">Edit</button>
+                                        </td> -->
+                                    </tr>
+                                    <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+        </div>
+        <%- include("templates/footer") %>

@@ -1,0 +1,79 @@
+<%- include("templates/header") %>
+    <%- include("templates/navbar") %>
+
+        <h1 class="text-base md:text-3xl md:font-bold mb-5 text-center text-gray-500">
+            LOGIN
+        </h1>
+        <div class="flex justify-center overflow-x-auto">
+            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <!-- Error message 표시 -->
+                    <!-- <% if (typeof errorMessage !=='undefined' && errorMessage) { %>
+                        <p class="text-red-500 text-sm text-center text-bold">
+                            <%= errorMessage %>
+                        </p>
+                        <% } %> -->
+                    <form id="loginForm" class="space-y-4 md:space-y-6" method="post" action="/loggingin">
+                        <div>
+                            <label for="username" class="block mb-2 text-sm font-medium text-gray-900">
+                                Username</label>
+                            <input type="username" name="username" id="username"
+                                class="border text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                placeholder="Username" required="">
+                        </div>
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
+                            <input type="password" name="password" id="password" placeholder="••••••••"
+                                class="border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                required="">
+                        </div>
+                        <div class="flex items-center justify-end">
+                            <!-- <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="remember" aria-describedby="remember" type="checkbox"
+                                        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
+                                </div>
+                            </div> -->
+                            <!-- <a href="#" class="text-sm font-medium text-primary-600 hover:underline">Forgot
+                                        password?</a> -->
+                        </div>
+                        <button type="submit"
+                            class="w-full text-white bg-theme-extra-color2 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:ring-2 hover:text-theme-extra-color2 hover:bg-white">Sign
+                            in</button>
+                        <p class="text-sm font-light text-gray-500">
+                            Don’t have an account yet? <a href="/signup"
+                                class="font-medium text-primary-600 hover:underline">Sign up</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.getElementById("loginForm").addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+
+                const response = await fetch("/loggingin", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const resultText = await response.text();
+
+                if (response.ok) {
+                    window.location.href = '/';
+                } else {
+                    showPopup(resultText);
+                }
+            });
+        </script>
+        <%- include("templates/popup") %>
+            <%- include("templates/footer") %>

@@ -1,0 +1,41 @@
+<%- include("templates/header") %>
+    <%- include("templates/navbar") %>
+
+        <!-- only show the name of user if they are logged in -->
+        <% if (user && user.username) { %>
+            <h1 class="text-base md:text-3xl md:font-bold mb-5 text-center text-gray-500">
+                Hello, <%= user.username %>
+            </h1>
+            <% } %>
+
+                <!-- Grid layout with 4 columns on larger screens, and dynamic column count on smaller screens -->
+                <div class="grid lg:grid-cols-4 grid-cols-1 gap-6 flex flex-col justify-center items-center">
+                    <% uploadedContents.forEach(content=> { %>
+                        <div class="bg-white rounded-lg shadow-md p-6 w-full h-auto">
+                            <% if (content.type==='image' ) { %>
+                                <!-- Image content -->
+                                <a href="/info/<%=content.type%>/<%=content.short_url %>">
+                                    <img src="<%= content.original_url %>" alt="Uploaded Image"
+                                        class="w-full h-auto rounded">
+                                </a>
+                                <% } else if (content.type==='link' ) { %>
+                                    <!-- Link content: Ensure text wraps inside the div -->
+                                    <a href="/info/<%=content.type%>/<%=content.short_url %>"
+                                        class="text-blue-500 hover:text-blue-700 text-sm break-words text-center">
+                                        <%= content.short_url %>
+                                    </a>
+                                    <% } else if (content.type==='text' ) { %>
+                                        <!-- Text content: Ensure text wraps inside the div -->
+                                        <p class="text-gray-700 text-sm break-words">
+                                            <%= content.text %>
+                                        </p>
+                                        <a href="/info/<%=content.type%>/<%= content.short_url %>"
+                                            class="mt-2 inline-block text-blue-500 hover:text-blue-700">
+                                            View
+                                        </a>
+                                        <% } %>
+                        </div>
+                        <% }) %>
+                </div>
+
+                <%- include("templates/footer") %>
