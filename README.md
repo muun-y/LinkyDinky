@@ -2,8 +2,6 @@
 
 _A mashup of Imgur, Pastebin, and Bit.ly. Upload and share images, text, and shortened URLs effortlessly. Simplifying content sharing one link at a time._
 
----
-
 ## 1. Features
 
 - **Image Hosting**: Upload and share images with a unique link.
@@ -11,15 +9,11 @@ _A mashup of Imgur, Pastebin, and Bit.ly. Upload and share images, text, and sho
 - **URL Shortening**: Convert long URLs into short, shareable links.
 - **User-Friendly Interface**: Intuitive and easy-to-use platform for content sharing.
 
----
-
 ## 2. How to Use
 
 1. **Upload Content**: Choose an image, text, or URL to share.
 2. **Get a Short Link**: Receive a unique link to your content.
 3. **Share**: Share the link with friends, colleagues, or on social media.
-
----
 
 ## 3.Techniques and Libraries
 
@@ -40,8 +34,6 @@ _A mashup of Imgur, Pastebin, and Bit.ly. Upload and share images, text, and sho
 
 - **MongoDB**
 - **MySQL**
-
----
 
 ## 4. Installation
 
@@ -93,8 +85,6 @@ npm start
 
 Once the application has started successfully, you can access it in your web browser at http://localhost:3000 (or a different port if specified). By following these steps, you should be able to install and run the project locally on your machine. Make sure to review the project's documentation for any additional configuration or setup required for specific features or modules.
 
----
-
 ## 5. File Organization
 
 ```
@@ -108,7 +98,7 @@ Top level of project folder:
 ├── index.js                # index.js file, main js file to start app
 ├── package.json            # package file, includes dependencies for app to run
 ├── tailwind.config.js      # Configuration file for Tailwind CSS, defines custom styles, themes, and utility settings for the application
-├── db_schema.jpg           # Configuration file for Tailwind CSS, defines custom styles, themes, and utility settings for the application
+├── db_schema.jpg           # Image file representing the database schema, illustrating the structure and relationships of the application's database
 └── utils.js                # utils.js file, removes need to use /public
 
 It has the following subfolders and files:
